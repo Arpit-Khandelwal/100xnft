@@ -42,26 +42,34 @@ export default function MintNFT()
     }
   };
   const publicKey = useWallet()
+  const user = useSession();
+  const email = user.data?.user?.email
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
       {!publicKey.publicKey && <ConnectWallet />}
-      <h1 className="text-3xl m-4 text-center">Your Public key is: {publicKey.publicKey?.toString()}</h1>
+      <h1 className="text-xl m-4 text-center">Your Public key is: {publicKey.publicKey?.toString()}</h1>
       {loading ? (
       <Loading />
       ) : (
       <>
         {NFT ? (
         <div className="text-center">
-          NFT Minted successfully at {NFT}
+          NFT Minted successfully at <a className="text-green-200" href={"https://translator.shyft.to/address/" +NFT+ "?cluster=devnet"}>
+            {NFT}
+            </a>
         </div>
         ) : (
+          <>
+          <div className="text-center">Congratulations! {email} is eligible for the 100x Devs Mint</div>
         <button
           className="text-2xl p-4 bg-blue-500 text-white rounded hover:bg-blue-700"
           onClick={mintNFT}
-        >
+          >
           Mint 100x NFT
         </button>
+        <div className="text-red-500">Tip: If minting fails, please try again</div>
+          </>
         )}
       </>
       )}
@@ -75,6 +83,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useState } from "react";
 import Loading from "./Loading";
+import { getSession, useSession } from "next-auth/react";
 
 export function ConnectWallet()
 {
