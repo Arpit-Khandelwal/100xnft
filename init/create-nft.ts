@@ -10,6 +10,7 @@ import
   {
     airdropIfRequired,
     getExplorerLink,
+    getKeypairFromEnvironment,
     getKeypairFromFile,
   } from "@solana-developers/helpers";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
@@ -35,7 +36,7 @@ export async function createNFT(userPublicKey:string)
   const connection = new Connection(clusterApiUrl("devnet"));
 
   // initialize a keypair for the user
-  const user = await getKeypairFromFile("/Users/arpitk/Downloads/Coding/100xdevs/100xnft/init/wallet-keypair.json");
+  const user = await getKeypairFromEnvironment(process.env.SOL_PRIVATE_KEY as string)
 
   await airdropIfRequired(
     connection,
