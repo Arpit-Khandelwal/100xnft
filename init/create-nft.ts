@@ -36,8 +36,8 @@ export async function createNFT(userPublicKey:string)
   const connection = new Connection(clusterApiUrl("devnet"));
 
   // initialize a keypair for the user
-  const user = await getKeypairFromEnvironment(process.env.SOL_PRIVATE_KEY as string)
-
+  const user = getKeypairFromEnvironment("SOL_PRIVATE_KEY")
+  console.log(user)
   await airdropIfRequired(
     connection,
     user.publicKey,
