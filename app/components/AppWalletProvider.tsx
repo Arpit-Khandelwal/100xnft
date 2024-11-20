@@ -12,6 +12,7 @@ import { clusterApiUrl } from "@solana/web3.js";
 // import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
  
 // Default styles that can be overridden by your app
+//@ts-ignore
 require("@solana/wallet-adapter-react-ui/styles.css");
 
 export default function AppWalletProvider({

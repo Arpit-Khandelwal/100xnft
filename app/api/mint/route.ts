@@ -1,4 +1,4 @@
-import { Keypair, PublicKey } from "@solana/web3.js";
+import { Keypair } from "@solana/web3.js";
 import { getMetaplex } from "@/utils/solana";
 import { getServerSession } from "next-auth";
 import authOptions  from "@/utils/auth"; 
@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   // user verification from email list / api
+  //@ts-ignore
   const email = session.user.email
 
   if (!session) {
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     const payerKeypair = Keypair.fromSecretKey(
       Uint8Array.from(JSON.parse(process.env.SOL_PRIVATE_KEY as string))
     );
-
+    //@ts-ignore
     const metaplex = getMetaplex(payerKeypair);
 
 
